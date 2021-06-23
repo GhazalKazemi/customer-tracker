@@ -16,7 +16,8 @@
 
 <div class="container">
     <h2>CRM - Customer Relationship Manager</h2>
-    <input type="button" value="Add Customer" onclick="window.location.href='showFormForAdd'; return false;" />
+    <input type="button" value="Add Customer" onclick="window.location.href='showFormForAdd'; return false;"
+           class="btn btn-outline-dark"/>
 <table class="table table-hover">
     <thead class="table-dark">
     <tr>
