@@ -32,7 +32,7 @@
         <c:url var="updateLink" value="/customer/showFormForUpdate">
             <c:param name="customerId" value="${customer.id}"/>
         </c:url>
-        <c:url var="deleteLink" value="/customer/showFormForDelete">
+        <c:url var="deleteLink" value="/customer/delete">
             <c:param name="customerId" value="${customer.id}"/>
         </c:url>
         <tr>
