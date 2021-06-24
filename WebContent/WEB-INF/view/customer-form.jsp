@@ -16,6 +16,7 @@
 <div id="container">
 
     <form:form action="saveCustomer" modelAttribute="customer" method="post" cssClass="col-md-6">
+    <form:hidden path="id" />
         <legend>Add Customer</legend>
     <div class="col">
         <div class="form-floating mb-3">
