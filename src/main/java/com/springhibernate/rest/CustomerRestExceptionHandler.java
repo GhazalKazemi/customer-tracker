@@ -16,4 +16,14 @@ public class CustomerRestExceptionHandler {
         );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+    // General exception handler
+    @ExceptionHandler
+    public ResponseEntity<CustomerErrorResponse> handleException(Exception e){
+        CustomerErrorResponse response = new CustomerErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }
