@@ -148,4 +148,5 @@ buildNumber.properties
 ### Project Files
 sql-scripts/
 lib/
+src/main/resources/persistence-mysql.properties
 
