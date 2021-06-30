@@ -10,8 +10,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
@@ -21,22 +23,24 @@ import java.util.logging.Logger;
 
 @Configuration
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan(basePackages = "com.springhibernate")
-@PropertySource("classpath:persistence-mysql.properties")
-public class CustomerAppConfig {
+@PropertySource({"classpath:persistence-mysql.properties"})
+public class CustomerAppConfig implements WebMvcConfigurer {
     @Autowired
     private Environment environment;
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
+//    @Bean
+//    public ViewResolver viewResolver(){
+//        InternalResourceViewResolver viewResolver =
+//                new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/WEB-INF/view");
+//        viewResolver.setSuffix(".jsp");
+//        return viewResolver;
+//    }
     @Bean
-    public ViewResolver viewResolver(){
-        InternalResourceViewResolver viewResolver =
-                new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/view");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
     public DataSource secureDataSource(){
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
@@ -47,7 +51,7 @@ public class CustomerAppConfig {
         logger.info("jdbc.url>>>> " + environment.getProperty("jdbc.url"));
 
         dataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
-        dataSource.setJdbcUrl(environment.getProperty("jdbc.user"));
+        dataSource.setUser(environment.getProperty("jdbc.user"));
         dataSource.setPassword(environment.getProperty("jdbc.password"));
 
         dataSource.setInitialPoolSize(convertStringPropertyToInt("connection.pool.initialPoolSize"));
