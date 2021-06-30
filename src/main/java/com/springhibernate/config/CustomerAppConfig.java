@@ -1,5 +1,6 @@
 package com.springhibernate.config;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,6 +11,8 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
 import java.util.logging.Logger;
 
 @Configuration
@@ -29,5 +32,19 @@ public class CustomerAppConfig {
         viewResolver.setPrefix("/WEB-INF/view");
         viewResolver.setSuffix(".jsp");
         return viewResolver;
+    }
+    public DataSource secureDataSource(){
+        ComboPooledDataSource dataSource = new ComboPooledDataSource();
+        try {
+            dataSource.setDriverClass(environment.getProperty("jdbc.driver"));
+        } catch (PropertyVetoException e) {
+            e.printStackTrace();
+        }
+        logger.info("jdbc.url>>>> " + environment.getProperty("jdbc.url"));
+
+        dataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
+        dataSource.setJdbcUrl(environment.getProperty("jdbc.user"));
+        dataSource.setPassword(environment.getProperty("jdbc.password"));
+        return dataSource;
     }
 }
