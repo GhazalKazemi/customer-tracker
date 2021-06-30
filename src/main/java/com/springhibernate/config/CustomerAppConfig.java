@@ -45,6 +45,18 @@ public class CustomerAppConfig {
         dataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
         dataSource.setJdbcUrl(environment.getProperty("jdbc.user"));
         dataSource.setPassword(environment.getProperty("jdbc.password"));
+
+        dataSource.setInitialPoolSize(convertStringPropertyToInt("connection.pool.initialPoolSize"));
+        dataSource.setMinPoolSize(convertStringPropertyToInt("connection.pool.minPoolSize"));
+        dataSource.setMaxPoolSize(convertStringPropertyToInt("connection.pool.maxPoolSize"));
+        dataSource.setMaxIdleTime(convertStringPropertyToInt("connection.pool.maxIdleTime"));
+
         return dataSource;
+    }
+
+    private int convertStringPropertyToInt(String propertyName){
+        String propertyValue = environment.getProperty(propertyName);
+        int intPropertyValue = Integer.parseInt(propertyValue);
+        return intPropertyValue;
     }
 }
