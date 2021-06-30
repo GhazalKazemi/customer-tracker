@@ -1,10 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
   User: ghazalkazemi
-  Date: 23/6/21
-  Time: 3:54 pm
+  Date: 30/6/21
+  Time: 1:21 pm
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% response.sendRedirect("customer/list"); %>
-
+<html>
+<head>
+    <title>Customer CRM</title>
+</head>
+<body>
+<h2>Spring REST API</h2>
+</body>
+</html>
