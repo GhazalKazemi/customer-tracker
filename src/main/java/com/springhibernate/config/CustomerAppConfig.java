@@ -13,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 @Configuration
@@ -52,6 +53,17 @@ public class CustomerAppConfig {
         dataSource.setMaxIdleTime(convertStringPropertyToInt("connection.pool.maxIdleTime"));
 
         return dataSource;
+    }
+
+    private Properties getHibernateProperties() {
+
+        // set hibernate properties
+        Properties props = new Properties();
+
+        props.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        props.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
+
+        return props;
     }
 
     private int convertStringPropertyToInt(String propertyName){
